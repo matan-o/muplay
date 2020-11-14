@@ -52,9 +52,9 @@ function Album(props){
     {album && <div>
     <h1>{album.album_name}(by {album.artist_name})</h1>
     <h3 >{album.release_date}</h3>
-
+        
         <img id="artistPic" alt={album.album_name} src={album.cover_img_url}/>
-
+        
         </div>}
 
         {songs && <div> 
