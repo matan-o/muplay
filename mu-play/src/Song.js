@@ -13,7 +13,7 @@ function Song(props){
     const [song, setSong] = useState(null)
     const [youtubeId, setYoutubeId] = useState(null) 
     const [songsList, setSongsList] = useState(null)
-    const [funcTitle, SetfuncTitle] = useState(null)
+    const [funcTitle, SetfuncTitle] = useState("song list")
     const [itemID, setItemId] = useState(null)
 
     
@@ -47,7 +47,7 @@ function Song(props){
         .then(function (response) {
       
             setSongsList(response.data)
-            setItemId(songsList[1].playlist_id)
+            setItemId(songsList[0].playlist_id)
             SetfuncTitle(`all songs of "${response.data[1].playlist_name}" playlist`)
                console.log(songsList)
         })
@@ -126,15 +126,15 @@ function Song(props){
             picture-in-picture" 
             allowfullscreen>
             </iframe>}
-
+            <h3>{funcTitle}</h3><br></br>
             {songsList && <div> 
-                <h3>{funcTitle}</h3><br></br>
+                
             <div id='grid'>
             {songsList.map((song,i)=>{
                     return(
-            <Link onClick={axiosAll} to={`/Song/${song.id}/${props.match.params.func}/${props.match.params.funcId}`}>
+            <Link to={`/Song/${song.id}/${props.match.params.func}/${props.match.params.funcId}`}>
                 <div key={i} id={'gridbox'}>
-                    <img id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
+                    <img onClick={axiosAll} id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
                         <h4 id='boxText'>{song.song_name}</h4>
                     </div>
             </Link>
