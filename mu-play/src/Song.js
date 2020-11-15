@@ -48,11 +48,12 @@ function Song(props){
       
             setSongsList(response.data)
             setItemId(songsList[0].playlist_id)
+            console.log(songsList)
             SetfuncTitle(`all songs of "${response.data[1].playlist_name}" playlist`)
                console.log(songsList)
         })
         .catch(function (error) {
-        alert(error);
+            console.log(error);
         }) 
     };
 
@@ -132,7 +133,7 @@ function Song(props){
             <div id='grid'>
             {songsList.map((song,i)=>{
                     return(
-            <Link to={`/Song/${song.id}/${props.match.params.func}/${props.match.params.funcId}`}>
+            <Link to={`/Song/${song.id || song.song_id }/${props.match.params.func}/${props.match.params.funcId}`}>
                 <div key={i} id={'gridbox'}>
                     <img onClick={axiosAll} id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
                         <h4 id='boxText'>{song.song_name}</h4>
