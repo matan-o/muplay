@@ -7,7 +7,6 @@ let mainURL = 'http://localhost:3001'
 
 function Playlist(props){
     
-
     const [songs, setSongs] = useState(null)
     
     const axiosAll = () =>{         
@@ -47,9 +46,6 @@ function Playlist(props){
 
     })}
     </div></div>}
-    
-    
-     
     </>)
 
 };

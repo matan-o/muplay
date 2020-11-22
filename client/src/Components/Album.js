@@ -44,10 +44,8 @@ function Album(props){
     })
     }
 
-
     return(<><div id='main'>
-    
-    
+      
     {album && <div>
     <h2>{album.album_name}(by {album.artist_name}, {album.release_date})</h2>
         <img id="artistPic" alt={album.album_name} src={album.cover_img_url}/>
@@ -69,12 +67,9 @@ function Album(props){
     </div>
     </div>
     }
-    
-    
-     
+      
     </div></>)
 
 };
-
 
 export default Album;

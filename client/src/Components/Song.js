@@ -5,11 +5,9 @@ import './muplay.css';
 import Playlist from './Playlist';
 import ReactPlayer from 'react-player/youtube'
 
-
 let mainURL = 'http://localhost:3001'  
 
 function Song(props){
-
 
     const [song, setSong] = useState(null)
     const [youtubeId, setYoutubeId] = useState(null) 
@@ -17,7 +15,6 @@ function Song(props){
     const [funcTitle, SetfuncTitle] = useState("song list")
     const [itemID, setItemId] = useState(null)
 
-    
     const axiosAll = () =>{
         getSong();
         getSongsList();
@@ -57,8 +54,6 @@ function Song(props){
             console.log(error);
         }) 
     };
-
-
     
     const getSongsList = () =>{
         axios.get(`${mainURL}/songs`)
