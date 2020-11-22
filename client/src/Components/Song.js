@@ -40,21 +40,7 @@ function Song(props){
     console.log(error);
     })
     }
-    const Playlist = () =>{
-        axios.get(`${mainURL}/playlists/${props.match.params.funcId}`)
-        .then(function (response) {
-      
-            setSongsList(response.data)
-            setItemId(songsList[0].playlist_id)
-            console.log(songsList)
-            SetfuncTitle(`all songs of "${response.data[1].playlist_name}" playlist`)
-               console.log(songsList)
-        })
-        .catch(function (error) {
-            console.log(error);
-        }) 
-    };
-    
+
     const getSongsList = () =>{
         axios.get(`${mainURL}/songs`)
         .then(function (response) {
@@ -135,6 +121,5 @@ function Song(props){
          </>)
 
         };
-
 
 export default Song;
