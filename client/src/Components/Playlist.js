@@ -28,6 +28,10 @@ function Playlist(props){
     }
 
     return(<>
+<div key='manu' id='manu'> 
+      <Link to="/" > Home   </Link>        
+            </div>
+
     {songs &&
         <div id='main'>
             <br></br>

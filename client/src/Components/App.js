@@ -18,14 +18,7 @@ function App() {
       
      
       <BrowserRouter>
-      <div key='manu' id='manu'>
       
-      <Link to="/" > Home   </Link>
-            {/* <Link to="/playlist">playlist</Link> */}
-            {/* <Link to="/artist/">artist</Link> */}
-            {/* <Link to="/album">album</Link> */}
-            {/* <Link to="/song">song </Link> */}
-            </div>
             
             <div id='page'>
         <Switch>

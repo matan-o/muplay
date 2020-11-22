@@ -13,7 +13,6 @@ function Song(props){
     const [youtubeId, setYoutubeId] = useState(null) 
     const [songsList, setSongsList] = useState(null)
     const [funcTitle, SetfuncTitle] = useState("song list")
-    const [itemID, setItemId] = useState(null)
 
     const axiosAll = () =>{
         getSong();
@@ -40,7 +39,20 @@ function Song(props){
     console.log(error);
     })
     }
-
+    const Playlist = () =>{
+        axios.get(`${mainURL}/playlists/${props.match.params.funcId}`)
+        .then(function (response) {
+      
+            setSongsList(response.data)
+            console.log(songsList)
+            SetfuncTitle(`all songs of "${response.data[1].playlist_name}" playlist`)
+               console.log(songsList)
+        })
+        .catch(function (error) {
+            console.log(error);
+        }) 
+    };
+    
     const getSongsList = () =>{
         axios.get(`${mainURL}/songs`)
         .then(function (response) {
@@ -55,7 +67,6 @@ function Song(props){
                         return (s.artist_id == props.match.params.funcId)
                     }))
                     SetfuncTitle(`all songs of ${current.artist_name}`)
-                    setItemId(song.id)
                   break;
                   
                 case 'album':
@@ -64,7 +75,6 @@ function Song(props){
                         return (s2.album_id == props.match.params.funcId)
                     }))
                     SetfuncTitle(`all songs from ${current.album_name}`)
-                    setItemId(song.id)
                   break;
                 case 'playlist':
                     
@@ -80,7 +90,10 @@ function Song(props){
 
     }
        
-    return(<>   
+    return(<> 
+      <div key='manu' id='manu'> 
+      <Link to="/" > Home   </Link>        
+            </div>
         {song &&
 
         <div id="main">
@@ -121,5 +134,6 @@ function Song(props){
          </>)
 
         };
+
 
 export default Song;

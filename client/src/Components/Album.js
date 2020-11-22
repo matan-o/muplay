@@ -44,7 +44,11 @@ function Album(props){
     })
     }
 
-    return(<><div id='main'>
+    return(<>
+    <div key='manu' id='manu'> 
+      <Link to="/" > Home   </Link>        
+            </div>
+    <div id='main'>
       
     {album && <div>
     <h2>{album.album_name}(by {album.artist_name}, {album.release_date})</h2>
