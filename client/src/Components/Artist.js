@@ -3,10 +3,7 @@ import {Link} from "react-router-dom";
 import axios from 'axios';
 import './muplay.css';
 
-
 let mainURL = 'http://localhost:3001'  
-
-
 
 function Artist(props){
     
@@ -15,14 +12,14 @@ function Artist(props){
     const [albums, setAlbums] = useState(null)
    
     const axiosAll = () =>{
-        Artist()
-        Songs()
-        Albums()
+        getArtist()
+        getSongs()
+        getAlbums()
     };
 
     useEffect(()=>axiosAll(),[])
     
-    const Artist = () => {
+    const getArtist = () => {
    
     axios.get(`${mainURL}/artists/${props.match.params.id}`)
     .then(function (response) {
@@ -33,7 +30,7 @@ function Artist(props){
     })
    }
 
-    const Songs = () => {
+    const getSongs = () => {
    
     axios.get(`${mainURL}/songs`)
     .then(function (response) {
@@ -47,7 +44,7 @@ function Artist(props){
     })
    }
 
-    const Albums = () => {
+    const getAlbums = () => {
    
     axios.get(`${mainURL}/top20_albums`)
     .then(function (response) {
@@ -70,7 +67,6 @@ function Artist(props){
 
     </div>} 
 
-
     {songs && <div> 
     <h3 >songs of {artist.artist_name}</h3><br></br>
     <div id='grid'>
@@ -89,7 +85,6 @@ function Artist(props){
     </div>
     }
     
-    
     {albums && <div> 
     <h3 >albums of {artist.artist_name}</h3><br></br>
     <div id='grid'>
@@ -104,16 +99,10 @@ function Artist(props){
         )
 
     })}
-    </div>
-    </div>
-    }
-    
-
-    
-    
-    
-    
-    </div>
+        </div>
+            </div>
+    }  
+                </div>
     
     </>)
 

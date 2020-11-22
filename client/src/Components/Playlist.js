@@ -11,12 +11,12 @@ function Playlist(props){
     const [songs, setSongs] = useState(null)
     
     const axiosAll = () =>{         
-        Songs()
+        getSongs()
     };
 
     useEffect(()=>axiosAll(),[])
 
-    const Songs = () => {
+    const getSongs = () => {
     axios.get(`${mainURL}/playlists/${props.match.params.id}`)
     .then(function (response) {
   
@@ -27,7 +27,6 @@ function Playlist(props){
     console.log(error);
     })
     }
-
 
     return(<>
     {songs &&
@@ -54,6 +53,5 @@ function Playlist(props){
     </>)
 
 };
-
 
 export default Playlist;

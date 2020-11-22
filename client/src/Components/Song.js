@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import axios from 'axios';
 import './muplay.css';
 import Playlist from './Playlist';
+import ReactPlayer from 'react-player/youtube'
 
 
 let mainURL = 'http://localhost:3001'  
@@ -18,8 +19,8 @@ function Song(props){
 
     
     const axiosAll = () =>{
-        Song();
-        SongsList();
+        getSong();
+        getSongsList();
      
     };
     useEffect(()=>axiosAll(),[])
@@ -30,7 +31,7 @@ function Song(props){
         return (match&&match[7].length==11)? match[7] : false
    }
 
-    const Song = () =>{
+    const getSong = () =>{
         axios.get(`${mainURL}/songs/${props.match.params.id}`)
     .then(function (response) {
         console.log(youtubeId)
@@ -59,13 +60,12 @@ function Song(props){
 
 
     
-    const SongsList = () =>{
+    const getSongsList = () =>{
         axios.get(`${mainURL}/songs`)
         .then(function (response) {
             
             let current = song
             let songArr = [...response.data] 
-            
             
             switch(props.match.params.func) {
                 case 'artist':
@@ -77,7 +77,6 @@ function Song(props){
                     setItemId(song.id)
                   break;
                   
-
                 case 'album':
                     
                     setSongsList(songArr.filter(s2 =>{
@@ -99,61 +98,48 @@ function Song(props){
         })
 
     }
-    
-    
-    
+       
+    return(<>   
+        {song &&
 
-    
-    return(<>
-    
+        <div id="main">
 
- {song &&
-
- <div id="main">
-
- <h2>{song.song_name}</h2>
- 
-            
-            {youtubeId && 
-            <iframe
-            id="youtube"
-            title={`${song.song_name}`} 
-            width="560" 
-            height="315" 
-            src={`https://www.youtube.com/embed/${youtubeId}`} 
-            frameborder="0" allow="accelerometer; 
-            autoplay; clipboard-write; 
-            encrypted-media; gyroscope; 
-            picture-in-picture" 
-            allowfullscreen>
-            </iframe>}
-            <h3>{funcTitle}</h3><br></br>
-            {songsList && <div> 
+        <h2>{song.song_name}</h2>
                 
-            <div id='grid'>
-            {songsList.map((song,i)=>{
-                    return(
-            <Link to={`/Song/${song.id || song.song_id }/${props.match.params.func}/${props.match.params.funcId}`}>
-                <div key={i} id={'gridbox'}>
-                    <img onClick={axiosAll} id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
-                        <h4 id='boxText'>{song.song_name}</h4>
-                    </div>
-            </Link>
-                )
+            {youtubeId && 
+                 <div id="youtube">
+                 <ReactPlayer 
+                 width="560px" 
+                 height="315px"
+                 
+                 url={`https://www.youtube.com/embed/${youtubeId}`} />
+             </div>
+                 }
 
-            })}
-            </div>
-            </div>
-            }
+                 <h3>{funcTitle}</h3><br></br>
+                 {songsList && <div> 
+                     
+                 <div id='grid'>
+                 {songsList.map((song,i)=>{
+                         return(
+                 <Link onClick={axiosAll} to={`/Song/${song.id || song.song_id }/${props.match.params.func}/${props.match.params.funcId}`}>
+                     <div key={i} id={'gridbox'}>
+                         <img id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
+                             <h4 id='boxText'>{song.song_name}</h4>
+                         </div>
+         </Link>
+             )
+                         
+         })}
+         </div>
+         </div>
+         }
 
-            </div>}
+         </div>}       
+         
+         </>)
 
-
-    
-    
-    </>)
-
-};
+        };
 
 
 export default Song;

@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
 import './muplay.css';
-
 let mainURL = 'http://localhost:3001'  
 
 function Album(props){
@@ -11,13 +10,13 @@ function Album(props){
     const [songs, setSongs] = useState(null)
     
     const axiosAll = () =>{         
-        albums()
-        Songs()
+        getAlbums()
+        getSongs()
     };
 
     useEffect(()=>axiosAll(),[])
 
-    const albums = () => {
+    const getAlbums = () => {
    
     axios.get(`${mainURL}/albums/${props.match.params.id}`)
     .then(function (response) {
@@ -30,7 +29,7 @@ function Album(props){
     })
     }
 
-    const Songs = () => {
+    const getSongs = () => {
    
     axios.get(`${mainURL}/songs`)
     .then(function (response) {
@@ -51,24 +50,21 @@ function Album(props){
     
     {album && <div>
     <h2>{album.album_name}(by {album.artist_name}, {album.release_date})</h2>
-    
-
         <img id="artistPic" alt={album.album_name} src={album.cover_img_url}/>
         </div>}
-
         {songs && <div> 
-    <div id='grid'>
-    {songs.map((song,i)=>{
-        return(
-            <Link to={`/Song/${song.id}/album/${song.album_id}`}>
-        <div key={i} id={'gridbox'}>
-        <img id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
-            <h4 id='boxText'>{song.song_name}</h4>
-            </div>
-            </Link>
-        )
+            <div id='grid'>
+            {songs.map((song,i)=>{
+                return(
+                    <Link to={`/Song/${song.id}/album/${song.album_id}`}>
+                <div key={i} id={'gridbox'}>
+                <img id='albumImg' src={song.cover_img_url} alt={`By ${song.artist_name}(${song.album_name}, ${song.release_date})`}/>
+                    <h4 id='boxText'>{song.song_name}</h4>
+                    </div>
+                    </Link>
+                )
 
-    })}
+            })}
 
     </div>
     </div>
